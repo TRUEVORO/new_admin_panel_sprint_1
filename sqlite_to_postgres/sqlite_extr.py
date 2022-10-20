@@ -18,7 +18,7 @@ class SQLiteExtractor:
     def _fetch_data_gen(self) -> Generator[list]:
         """Получение данных в заданном количестве."""
         while True:
-            data = [dict(i) for i in self.cursor.fetchmany(size=5)]
+            data = [dict(i) for i in self.cursor.fetchmany(size=500)]
             if not data:
                 break
             yield data

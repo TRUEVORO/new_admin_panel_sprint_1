@@ -2,6 +2,7 @@ from collections.abc import Generator
 from dataclasses import fields
 
 from psycopg2.extensions import connection as _connection
+from psycopg2.extras import execute_batch
 
 
 class PostgresSaver:
@@ -23,8 +24,7 @@ class PostgresSaver:
         args = ', '.join(['%s'] * len(cols))
         values = [[getattr(data, field.name) for field in fields(data)] for data in input_data.get(table)]
         query = self._create_query(table, ', '.join(cols), args)
-
-        self.cursor.executemany(query, values)
+        execute_batch(self.cursor, query, values, page_size=500)
 
     def save_all_data(self, data: Generator[dict]) -> None:
         """Сохранение данных в БД (Postgres)."""
