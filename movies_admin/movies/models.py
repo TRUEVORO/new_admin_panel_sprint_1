@@ -30,6 +30,12 @@ class Genre(UUIDMixin, TimeStampedMixin):
         db_table = "content\".\"genre"
         verbose_name = 'Жанр'
         verbose_name_plural = 'Жанры'
+        indexes = [
+            models.Index(
+                fields=['name'],
+                name='genre_name_idx',
+            )
+        ]
 
 
 class GenreFilmwork(UUIDMixin):
@@ -39,6 +45,12 @@ class GenreFilmwork(UUIDMixin):
 
     class Meta:
         db_table = "content\".\"genre_film_work"
+        constraints = [
+            models.UniqueConstraint(
+                fields=['film_work_id', 'genre_id'],
+                name='film_work_genre_idx',
+            )
+        ]
 
 
 class Person(UUIDMixin, TimeStampedMixin):
@@ -51,24 +63,42 @@ class Person(UUIDMixin, TimeStampedMixin):
         db_table = "content\".\"person"
         verbose_name = 'Личность'
         verbose_name_plural = 'Личности'
+        indexes = [
+            models.Index(
+                fields=['full_name'],
+                name='person_full_name_idx',
+            )
+        ]
 
 
 class PersonFilmwork(UUIDMixin):
+
+    class RoleType(models.TextChoices):
+        DIRECTOR = 'director', _('director')
+        PRODUCER = 'producer', _('producer')
+        ACTOR = 'actor', _('actor')
+
     film_work = models.ForeignKey('Filmwork', on_delete=models.CASCADE)
     person = models.ForeignKey('Person', on_delete=models.CASCADE)
-    role = models.TextField(_('role'), null=True)
+    role = models.TextField(_('role'), choices=RoleType.choices, null=True)
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = "content\".\"person_film_work"
-
-
-class FilmworkType(models.TextChoices):
-    MOVIE = 'movie', _('movie')
-    TV_SHOW = 'tv_show', _('tv_show')
+        constraints = [
+            models.UniqueConstraint(
+                fields=['film_work_id', 'person_id'],
+                name='film_work_person_idx',
+            )
+        ]
 
 
 class Filmwork(UUIDMixin, TimeStampedMixin):
+
+    class FilmworkType(models.TextChoices):
+        MOVIE = 'movie', _('movie')
+        TV_SHOW = 'tv_show', _('tv_show')
+
     title = models.CharField(_('title'), max_length=255)
     description = models.TextField(_('description'), blank=True)
     creation_date = models.DateField(_('creation_date'), blank=True)
@@ -84,3 +114,9 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
         db_table = "content\".\"film_work"
         verbose_name = 'Кинопроизведение'
         verbose_name_plural = 'Кинопроизведения'
+        indexes = [
+            models.Index(
+                fields=['creation_date'],
+                name='film_work_creation_date_idx',
+            )
+        ]

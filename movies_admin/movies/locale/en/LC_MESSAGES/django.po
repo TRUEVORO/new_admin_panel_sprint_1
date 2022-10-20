@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-05 08:19+0000\n"
+"POT-Creation-Date: 2022-10-19 17:41+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,42 +21,54 @@ msgstr ""
 msgid "movies"
 msgstr ""
 
-#: movies/models.py:29
+#: movies/models.py:23
 msgid "name"
 msgstr ""
 
-#: movies/models.py:31 movies/models.py:94
+#: movies/models.py:24 movies/models.py:103
 msgid "description"
 msgstr ""
 
-#: movies/models.py:59
+#: movies/models.py:57
 msgid "full_name"
 msgstr ""
 
+#: movies/models.py:77
+msgid "director"
+msgstr ""
+
+#: movies/models.py:78
+msgid "producer"
+msgstr ""
+
 #: movies/models.py:79
+msgid "acor"
+msgstr ""
+
+#: movies/models.py:83
 msgid "role"
 msgstr ""
 
-#: movies/models.py:88
+#: movies/models.py:99
 msgid "movie"
 msgstr ""
 
-#: movies/models.py:89
+#: movies/models.py:100
 msgid "tv_show"
 msgstr ""
 
-#: movies/models.py:93
+#: movies/models.py:102
 msgid "title"
 msgstr ""
 
-#: movies/models.py:95
+#: movies/models.py:104
 msgid "creation_date"
 msgstr ""
 
-#: movies/models.py:96
+#: movies/models.py:105
 msgid "rating"
 msgstr ""
 
-#: movies/models.py:97
+#: movies/models.py:106
 msgid "type"
 msgstr ""
