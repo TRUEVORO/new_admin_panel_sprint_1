@@ -1,5 +1,6 @@
 import uuid
-from django.core.validators import MinValueValidator, MaxValueValidator
+
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -72,7 +73,6 @@ class Person(UUIDMixin, TimeStampedMixin):
 
 
 class PersonFilmwork(UUIDMixin):
-
     class RoleType(models.TextChoices):
         DIRECTOR = 'director', _('director')
         PRODUCER = 'producer', _('producer')
@@ -94,7 +94,6 @@ class PersonFilmwork(UUIDMixin):
 
 
 class Filmwork(UUIDMixin, TimeStampedMixin):
-
     class FilmworkType(models.TextChoices):
         MOVIE = 'movie', _('movie')
         TV_SHOW = 'tv_show', _('tv_show')

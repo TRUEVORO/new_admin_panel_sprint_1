@@ -1,13 +1,13 @@
 import os
 import sqlite3
 from contextlib import closing, contextmanager
+from pathlib import Path
 
 import psycopg2
 from dotenv import load_dotenv
+from pg_saver import PostgresSaver
 from psycopg2.extensions import connection as _connection
 from psycopg2.extras import DictCursor
-
-from pg_saver import PostgresSaver
 from sqlite_extr import SQLiteExtractor
 
 
@@ -30,8 +30,9 @@ def load_from_sqlite(connection: sqlite3.Connection, pg_connection: _connection)
 
 
 if __name__ == '__main__':
+    sql_path = str(Path(__file__).resolve().parent / os.environ.get('SQLITE_PATH'))
 
-    load_dotenv(r'../movies_admin/config/.env')
+    load_dotenv()
 
     dsl = {
         'dbname': os.environ.get('DB_NAME'),
@@ -41,8 +42,7 @@ if __name__ == '__main__':
         'port': os.environ.get('DB_PORT', 5432),
     }
 
-    with conn_sqlite(os.environ.get('SQLITE_PATH')) as sqlite_conn, closing(
-            psycopg2.connect(**dsl, cursor_factory=DictCursor),
+    with conn_sqlite(sql_path) as sqlite_conn, closing(
+        psycopg2.connect(**dsl, cursor_factory=DictCursor),
     ) as pg_conn:
-
         load_from_sqlite(sqlite_conn, pg_conn)
