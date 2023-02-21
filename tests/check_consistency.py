@@ -9,8 +9,7 @@ from psycopg2.extras import DictCursor
 
 from sqlite_to_postgres.dataclass_templates import movies_mapper
 
-
-load_dotenv(r'../movies_admin/config/.env')
+load_dotenv(r'../.env')
 
 
 @pytest.fixture
@@ -24,7 +23,7 @@ def connect_dbs():
         'port': os.environ.get('DB_PORT', 5432),
     }
 
-    sqlite_path = r'../sqlite_to_postgres/db.sqlite'
+    sqlite_path = os.environ.get('SQLITE_PATH')
 
     pg_conn = psycopg2.connect(**dsl, cursor_factory=DictCursor)
     pg_cursor = pg_conn.cursor()

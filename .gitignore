@@ -103,7 +103,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-/movies_admin/config/.env
+/.env
 .env
 .venv
 env/

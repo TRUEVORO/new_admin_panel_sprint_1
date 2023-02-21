@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Genre, GenreFilmwork, Filmwork, Person, PersonFilmwork
+from .models import Filmwork, Genre, GenreFilmwork, Person, PersonFilmwork
 
 
 class GenreFilmworkInline(admin.TabularInline):
@@ -32,11 +32,7 @@ class FilmworkAdmin(admin.ModelAdmin):
     list_prefetch_related = ('genres',)
 
     def get_queryset(self, request):
-        queryset = (
-            super()
-            .get_queryset(request)
-            .prefetch_related(*self.list_prefetch_related)
-        )
+        queryset = super().get_queryset(request).prefetch_related(*self.list_prefetch_related)
         return queryset
 
     def get_genres(self, obj):

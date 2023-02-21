@@ -1,6 +1,5 @@
 import os
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -12,6 +11,6 @@ DATABASES = {
         'OPTIONS': {
             # Нужно явно указать схемы, с которыми будет работать приложение.
             'options': '-c search_path=public,content'
-        }
+        },
     }
 }
