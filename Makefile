@@ -8,11 +8,17 @@ postgres:
 	  -e POSTGRES_DB=movies_database  \
 	  postgres:15.2
 
-movies_db:
-	python movies_admin/manage.py migrate
-	psql -h 127.0.0.1 -U app -d movies_database -f schema_design/movies_database.ddl
+clean:
+	docker stop $$(docker ps -aq)
+	docker rm $$(docker ps -aq)
+	docker rmi $$(docker images -q)
+
+movies:
 	python movies_admin/manage.py migrate
 	python sqlite_to_postgres/load_data.py
+	python -m pytest -p no:cacheprovider tests/*
+
+superuser:
 	python movies_admin/manage.py createsuperuser
 
 server:

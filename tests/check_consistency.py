@@ -7,14 +7,14 @@ import pytest
 from dotenv import load_dotenv
 from psycopg2.extras import DictCursor
 
-from sqlite_to_postgres.dataclass_templates import movies_mapper
-
-load_dotenv(r'../.env')
+from sqlite_to_postgres import movies_mapper
 
 
 @pytest.fixture
 def connect_dbs():
     """Соединение с базами данных."""
+    load_dotenv()
+
     dsl = {
         'dbname': os.environ.get('DB_NAME'),
         'user': os.environ.get('DB_USER'),
